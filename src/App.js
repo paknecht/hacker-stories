@@ -17,17 +17,23 @@ const App = () => {
             num_comments: 2,
             points: 5,
             objectID: 1,
-        }
+        },
     ];
 
-    const [searchTerm, setSearchTerm] = React.useState('Re');
+    const [searchTerm, setSearchTerm] = React.useState(
+        localStorage.getItem('search') || 'React'
+    );
+
+    React.useEffect(() => {
+        localStorage.setItem('search', searchTerm);
+    }, [searchTerm]);
 
     const handleSearch = event => {
         setSearchTerm(event.target.value);
     };
 
     const searchedStories = stories.filter(story =>
-        story.title.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+        story.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
@@ -46,16 +52,17 @@ const App = () => {
 const Search = ({search, onSearch}) => (
     <div>
         <label htmlFor="search">Search: </label>
-        <input id="search"
-               type="text"
-               value={search}
-               onChange={onSearch}/>
+        <input
+            id="search"
+            type="text"
+            value={search}
+            onChange={onSearch}
+        />
     </div>
 );
 
 const List = ({list}) =>
-    list.map(item => <Item key={item.objectID}
-                           item={item}/>);
+    list.map(item => <Item key={item.objectID} item={item}/>);
 
 const Item = ({item}) => (
     <div>
