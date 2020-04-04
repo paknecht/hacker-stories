@@ -19,8 +19,8 @@ const list = [
     }
 ]
 
-function List() {
-    return list.map(function (item) {
+const List = () =>
+    list.map(item => {
         return (
             <div key={item.objectID}>
                 <span>
@@ -33,21 +33,20 @@ function List() {
             </div>
         );
     })
-}
 
-function App() {
 
-    return (
-        <div>
-            <h1>My Hacker Stories</h1>
+const App = () => (
+    <div>
+        <h1>My Hacker Stories</h1>
 
-            <label htmlFor="search">Search: </label>
-            <input id="search" type="text"></input>
+        <label htmlFor="search">Search: </label>
+        <input id="search" type="text"></input>
 
-            <hr/>
+        <hr/>
 
-            <List/>
-        </div>);
-}
+        <List/>
+    </div>
+)
+
 
 export default App;
