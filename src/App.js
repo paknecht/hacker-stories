@@ -1,26 +1,7 @@
 import React from 'react';
 
-const list = [
-    {
-        title: 'React',
-        url: 'https://reactjs.org/',
-        author: 'Jordan Walke',
-        num_comments: 3,
-        points: 4,
-        objectID: 0,
-    },
-    {
-        title: 'Redux',
-        url: 'https://redux.js.org/',
-        author: 'Dan Abramov, Andrew Clark',
-        num_comments: 2,
-        points: 5,
-        objectID: 1,
-    }
-]
-
-const List = () =>
-    list.map(item => {
+const List = (props) =>
+    props.list.map(item => {
         return (
             <div key={item.objectID}>
                 <span>
@@ -35,18 +16,43 @@ const List = () =>
     })
 
 
-const App = () => (
-    <div>
-        <h1>My Hacker Stories</h1>
+const App = () => {
+    const stories = [
+        {
+            title: 'React',
+            url: 'https://reactjs.org/',
+            author: 'Jordan Walke',
+            num_comments: 3,
+            points: 4,
+            objectID: 0,
+        },
+        {
+            title: 'Redux',
+            url: 'https://redux.js.org/',
+            author: 'Dan Abramov, Andrew Clark',
+            num_comments: 2,
+            points: 5,
+            objectID: 1,
+        }
+    ]
 
-        <label htmlFor="search">Search: </label>
-        <input id="search" type="text"></input>
+    const handleChange = (event) => {
+        console.log(event.target.value);
+    }
+    //do something
+    return (
+        <div>
+            <h1>My Hacker Stories</h1>
 
-        <hr/>
+            <label htmlFor="search">Search: </label>
+            <input id="search" type="text" onChange={handleChange}></input>
 
-        <List/>
-    </div>
-)
+            <hr/>
+
+            <List list={stories}/>
+        </div>
+    );
+}
 
 
 export default App;
