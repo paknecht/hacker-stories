@@ -1,21 +1,5 @@
 import React from 'react';
 
-const List = (props) =>
-    props.list.map(item => {
-        return (
-            <div key={item.objectID}>
-                <span>
-                    <a href={item.url}>{item.title}</a>
-                </span>
-                <span>{item.author}</span>
-                <span>{item.num_comments}</span>
-                <span>{item.points}</span>
-                {item.title}
-            </div>
-        );
-    })
-
-
 const App = () => {
     const stories = [
         {
@@ -34,31 +18,63 @@ const App = () => {
             points: 5,
             objectID: 1,
         }
-    ]
+    ];
 
-    const [searchTerm, setSearchTerm] = React.useState('');
-
-    const handleChange = (event) => {
-        setSearchTerm(event.target.value);
+    //A
+    const handleSearch = event => {
+        //C
+        console.log(event.target.value);
     };
-    //do something
+
     return (
         <div>
             <h1>My Hacker Stories</h1>
 
-            <label htmlFor="search">Search: </label>
-            <input id="search" type="text" onChange={handleChange}></input>
-
-            <p>
-                Searching for <strong>{searchTerm}</strong>
-            </p>
+            <Search onSearch={handleSearch}/>
 
             <hr/>
 
             <List list={stories}/>
         </div>
     );
-}
+};
+
+const Search = (props) => {
+    const [searchTerm, setSearchTerm] = React.useState('');
+
+    const handleChange = (event) => {
+        setSearchTerm(event.target.value);
+
+        // B
+        props.onSearch(event);
+    };
+
+    return (
+        <div>
+            <label htmlFor="search">Search: </label>
+            <input id="search" type="text" onChange={handleChange}></input>
+
+            <p>
+                Searching for <strong>{searchTerm}</strong>
+            </p>
+        </div>
+    );
+};
+
+const List = (props) =>
+    props.list.map(item => {
+        return (
+            <div key={item.objectID}>
+                <span>
+                    <a href={item.url}>{item.title}</a>
+                </span>
+                <span>{item.author}</span>
+                <span>{item.num_comments}</span>
+                <span>{item.points}</span>
+                {item.title}
+            </div>
+        );
+    });
 
 
 export default App;
